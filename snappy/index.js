@@ -9,6 +9,18 @@ let selectedCategory = '';
 let items = [];
 let currentPage = 1;
 
+const updatePage = (page) => {
+    currentPage = page;
+    updatePageNumber(page);
+}
+const updatePageNumber = (page) => {
+    const number = document.getElementById('page-number');
+    number.textContent = page;
+    const prev = document.getElementById('prev');
+
+    prev.disabled = page === 1;
+}
+
 const fetchCategories = async () => {
     try {
         const response = await fetch(`${BASE_URL}/categories`);
@@ -33,16 +45,17 @@ const addCategoriesToDom = () => {
         cat.appendChild(div);
     });
 }
-const selectCategory = (cat) => {
+const selectCategory = async (cat) => {
     if (selectedCategory !== '') {
         document.getElementById(selectedCategory).classList.remove('selected');
     }
     if (cat === selectedCategory) {
         selectedCategory = "";
-        return;
+    } else {
+        document.getElementById(cat).classList.add('selected');
+        selectedCategory = cat;
     }
-    document.getElementById(cat).classList.add('selected');
-    selectedCategory = cat;
+    await fetchCategoryItems();
 }
 
 const fetchItems = async () => {
@@ -51,7 +64,6 @@ const fetchItems = async () => {
         const response = await fetch(`${BASE_URL}/items/batch?ids=${lower},${lower + ITEMS_PER_PAGE}`);
         let re = await response.json();
 
-        currentPage++;
         items.length = 0
         items.push(...re);
         addItemsToDom();
@@ -63,12 +75,27 @@ const fetchItems = async () => {
         }
     }
 }
+const fetchCategoryItems = async () => {
+    if (selectedCategory === '') {
+        updatePage(1);
+        return fetchItems();
+    }
+    try {
+        const response = await fetch(`${BASE_URL}/categories/${selectedCategory}/items`);
+        let re = await response.json();
+
+        items.length = 0;
+        items.push(...re);
+        addItemsToDom();
+    } catch (error) {
+        console.log(error);
+    }
+}
 const addItemsToDom = () => {
     const itemDiv = document.getElementById('items');
     itemDiv.replaceChildren();
 
     items.forEach(item => {
-        console.log(item);
         const div = document.createElement('div');
         div.classList.add('item-card');
 
@@ -91,8 +118,13 @@ const init = async () => {
 }
 root.addEventListener('click', (e) => {
     if (e.target.classList.contains('category-item')) {
-        console.log(e.target.id);
         selectCategory(e.target.id);
+    } else if (e.target.id === 'next') {
+        updatePage(currentPage + 1);
+        fetchItems();
+    } else if (e.target.id === 'prev') {
+        updatePage(currentPage - 1);
+        fetchItems();
     }
 })
 document.addEventListener('DOMContentLoaded', init);
