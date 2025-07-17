@@ -1,5 +1,5 @@
 import {API_URL, MODELS_LIST, MODELS_LIST as modelsList} from "./constants.js";
-import {updateChat, createItem, getItems, initDB, Prompt} from "./localdb.js";
+import {createItem, getItems, initDB, Prompt, updateChat} from "./localdb.js";
 /* global marked */
 
 const root = document.getElementById("root")
@@ -39,7 +39,7 @@ const toggleTextArea = () => {
         console.error("Chat input not found");
         return;
     }
-    chatInput.hidden = !chatInput.hidden;
+    chatInput.disabled = !chatInput.disabled;
 }
 const disableModelSelection = () => {
     const select = document.getElementById("modelSelection");
@@ -167,14 +167,14 @@ const renderChatHistory = () => {
         const li = document.createElement("li");
         const a = document.createElement("a");
         a.classList.add("chatLink", "hover:bg-base-100");
-        a.id = chat.id;
-        a.textContent = chat.id;
+        a.id = `chat-${chat.id}`;
+        a.textContent = chat.prompts[0].message;
         li.appendChild(a);
         chatHistory.appendChild(li);
     });
 
     if (currentChatId >= 0) {
-        document.getElementById(currentChatId).classList.add("bg-base-100");
+        document.getElementById(`chat-${currentChatId}`).classList.add("bg-base-100");
     }
 }
 
@@ -237,19 +237,27 @@ const addPromptToChat = async (input, response) => {
 }
 
 root.addEventListener("click", async (e) => {
-    if (e.target.id === "getStartedBtn") {
-        loadTemplate("chat");
-        await refreshChatHistory();
-    } else if (e.target.classList.contains("chatLink") && e.target.textContent !== currentChatId.toString()) {
-        // removing selected bg from prev selection
-        if (currentChatId >= 0) {
-            document.getElementById(currentChatId).classList.remove("bg-base-100");
-        }
+        if (e.target.id === "getStartedBtn") {
+            loadTemplate("chat");
+            await refreshChatHistory();
+        } else if (e.target.classList.contains("chatLink") && e.target.id !== currentChatId.toString()) {
+            const clickedChatId = Number(e.target.id.split('-')[1]);
 
-        e.target.classList.add("bg-base-100");
-        populatePrompts(e.target.textContent);
+            if (clickedChatId !== currentChatId) {
+                // removing selected bg from prev selection
+                if (currentChatId >= 0) {
+                    const prevSelectedChatLink = document.getElementById(`chat-${currentChatId}`);
+                    if (prevSelectedChatLink) {
+                        prevSelectedChatLink.classList.remove("bg-base-100");
+                    }
+                }
+
+                e.target.classList.add("bg-base-100");
+                populatePrompts(clickedChatId);
+            }
+        }
     }
-})
+)
 root.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && e.target.id === "chatInput" && e.target.value.length > 0) {
         e.preventDefault();
