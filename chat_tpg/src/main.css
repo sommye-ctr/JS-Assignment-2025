@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: dracula --default;
+}
+
+@theme {
+    --color-primary: #030014;
+    --color-light-100: #cecefb;
+    --color-light-200: #a8b5db;
+    --color-gray-100: #9ca4ab;
+    --color-dark-100: #0f0d23;
+    --color-dark-50: #2a264c;
+
+
+    --font-poppins: "Poppins", sans-serif;
+    --font-sans: var(--font-poppins), system-ui, sans-serif;
+}
+
+@layer base {
+    html, body {
+        @apply h-full m-0 p-0 overflow-hidden;
+    }
+    h1 {
+        @apply text-5xl font-bold;
+    }
+    h2 {
+        @apply text-4xl font-bold;
+    }
+}
+
+@utility no-scrollbar {
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+
