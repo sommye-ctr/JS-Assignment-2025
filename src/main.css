@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --color-bg: #f0f4f8;
+    --color-text: #2d3748;
+    --color-primary: #FF8A5B;
+    --color-secondary: #ffac8e;
+
+    --font-poppins: "Poppins", sans-serif;
+    --font-sans: var(--font-poppins), system-ui, sans-serif;
+}
+
+
+@layer base {
+    body {
+        @apply bg-[#f0f4f8] flex justify-center items-center min-h-screen m-0 p-5 box-border font-poppins;
+    }
+
+    h1 {
+        @apply text-5xl font-bold;
+    }
+}
+
+.game-container {
+    @apply bg-white rounded-3xl shadow-lg p-10 max-w-[60vw] w-full flex flex-col items-center;
+}
+
+.game-board {
+    @apply grid grid-cols-4 gap-4 w-full max-w-[50vw] mt-8;
+}
+
+.memory-card {
+    @apply w-full pt-[100%] [transform-style:preserve-3d] transition-transform duration-600 ease-in-out cursor-pointer rounded-xl shadow-md;
+}
+
+.memory-card.flipped {
+    @apply [transform:rotateY(180deg)];
+}
+
+.memory-card.matched {
+    @apply cursor-default [transform:rotateY(180deg)];
+}
+
+.memory-card.matched img {
+    @apply blur-[1px];
+}
+
+.front-face,
+.back-face {
+    @apply absolute top-0 left-0 w-full h-full [backface-visibility:hidden] rounded-xl flex justify-center items-center overflow-hidden;
+}
+
+.front-face {
+    @apply bg-secondary text-white text-[2.5rem] font-bold;
+
+    &:hover {
+        @apply scale-105;
+    }
+}
+
+.back-face {
+    @apply bg-[#e2e8f0] [transform:rotateY(180deg)];
+}
+
+.back-face img {
+    @apply w-full h-full object-cover rounded-xl;
+}

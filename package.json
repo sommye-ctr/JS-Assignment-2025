@@ -1,0 +1,16 @@
+{
+  "name": "memery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./src/main.css -o ./dist/output.css",
+    "watch": "npx @tailwindcss/cli -i ./src/main.css -o ./dist/output.css --watch"
+  },
+  "private": true,
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  }
+}
