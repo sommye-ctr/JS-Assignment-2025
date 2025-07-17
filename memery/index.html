@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="dist/output.css">
+
+</head>
+<body>
+<div class="game-container">
+    <h1 class="mb-6">Memery</h1>
+
+    <div class="mb-6 flex items-center gap-4">
+        <label for="category-select" class="text-lg font-medium">Choose Category</label>
+        <select id="category-select"
+                class="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-800">
+            <option value="celebrities">Celebrities</option>
+            <option value="politicians">Politicians</option>
+        </select>
+        <button id="start-game-btn"
+                class="px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition duration-200 ease-in-out">
+            Start New Game
+        </button>
+    </div>
+
+    <div class="flex justify-between w-full max-w-md mb-6 text-lg text-text">
+        <span>Attempts: <span id="attempts-count" class="text-blue-600">0</span></span>
+        <span>Matches: <span id="matches-count" class="text-green-600">0</span></span>
+    </div>
+
+    <div class="game-board" id="game-board">
+    </div>
+
+    <div id="game-message" class="mt-8 text-2xl font-bold text-center text-gray-800 min-h-[3rem]"></div>
+</div>
+
+<script type="text/javascript" src="src/index.js"></script>
+</body>
+</html>
