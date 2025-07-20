@@ -15,32 +15,60 @@
 </head>
 <body>
 <div class="game-container">
-    <h1 class="mb-6">Memery</h1>
+    <h1>Memery</h1>
 
-    <div class="mb-6 flex items-center gap-4">
-        <label for="category-select" class="text-lg font-medium">Choose Category</label>
-        <select id="category-select"
-                class="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-800">
-            <option value="celebrities">Celebrities</option>
-            <option value="politicians">Politicians</option>
-        </select>
-        <button id="start-game-btn"
-                class="px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition duration-200 ease-in-out">
-            Start New Game
-        </button>
+    <!--    <div class="mb-6 flex items-center gap-4">-->
+    <!--        <label for="category-select" class="text-lg font-medium">Choose Category</label>-->
+    <!--        <select id="category-select"-->
+    <!--                class="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-800">-->
+    <!--            <option value="celebrities">Celebrities</option>-->
+    <!--            <option value="politicians">Politicians</option>-->
+    <!--        </select>-->
+    <!--        <button id="start-game-btn"-->
+    <!--                class="px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition duration-200 ease-in-out">-->
+    <!--            Start New Game-->
+    <!--        </button>-->
+    <!--    </div>-->
+
+    <p class="text-center my-6">A collaborative memory game where two players draw interpretations of the same<br/>prompts,
+        then try to match them!</p>
+
+    <div id="game-stats">
+        <h3 class="text-blue-800" id="game-message">Draw something</h3>
+        <button id="start-game-btn" class="bg-orange-500 text-white my-6">Start Game</button>
+        <button id="done-drawing-btn" class="bg-green-400 text-white my-6">Done Drawing</button>
+        <button id="start-matching-btn" class="bg-blue-400 text-white my-6">Start Matching</button>
+
+        <h4 id="game-round">Round: 0/6</h4>
+        <h4 id="game-matches-count">Matches: 0</h4>
     </div>
 
-    <div class="flex justify-between w-full max-w-md mb-6 text-lg text-text">
-        <span>Attempts: <span id="attempts-count" class="text-blue-600">0</span></span>
-        <span>Matches: <span id="matches-count" class="text-green-600">0</span></span>
+    <div id="game-area" class="mt-6 w-[50vw]">
+
+        <template id="canvas-container">
+            <div class="flex flex-col items-center gap-2">
+                <h4 id="current-player-heading" class="text-center">Player 1</h4>
+                <canvas id="canvas" class="w-full h-[35vh] rounded-xl border-1 border-gray-200 shadow cursor-crosshair">
+                </canvas>
+                <button id="clear-btn" class="mt-4 bg-secondary text-white">Clear</button>
+            </div>
+        </template>
+
+        <template id="matching-container">
+            <div class="game-board" id="game-board">
+            </div>
+
+            <div id="matching-message" class="mt-8 text-2xl font-bold text-center text-gray-800 min-h-[3rem]"></div>
+        </template>
+
     </div>
 
-    <div class="game-board" id="game-board">
-    </div>
-
-    <div id="game-message" class="mt-8 text-2xl font-bold text-center text-gray-800 min-h-[3rem]"></div>
+    <!--    <div class="flex justify-between w-full max-w-md mb-6 text-lg text-text">-->
+    <!--        <span>Attempts: <span id="attempts-count" class="text-blue-600">0</span></span>-->
+    <!--        <span>Matches: <span id="matches-count" class="text-green-600">0</span></span>-->
+    <!--    </div>-->
 </div>
 
-<script type="text/javascript" src="src/index.js"></script>
+<script type="text/javascript" src="src/script.js"></script>
 </body>
 </html>

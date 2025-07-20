@@ -20,10 +20,34 @@
     h1 {
         @apply text-5xl font-bold;
     }
+
+    h2 {
+        @apply text-4xl font-bold;
+    }
+
+    h3 {
+        @apply text-3xl;
+    }
+
+    h4 {
+        @apply text-2xl;
+    }
+
+    h5 {
+        @apply text-xl font-bold;
+    }
+
+    button {
+        @apply font-bold py-2 px-4 rounded-md cursor-pointer;
+    }
+}
+
+#game-stats{
+    @apply w-full flex items-center flex-col bg-orange-200 rounded-lg p-4;
 }
 
 .game-container {
-    @apply bg-white rounded-3xl shadow-lg p-10 max-w-[60vw] w-full flex flex-col items-center;
+    @apply bg-white rounded-3xl shadow-lg p-10 max-w-[75vw] w-full flex flex-col items-center;
 }
 
 .game-board {
